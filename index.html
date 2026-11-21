@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#02030A">
+  <title>SportSchool</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Splash -->
+  <div id="splash" class="splash" role="status">
+    <img src="img/logo.png" alt="Logo SportSchool Racing Technology PWA">
+    <div class="rev" aria-hidden="true"><i></i></div>
+    <h1>SportSchool</h1>
+    <p>Seguimiento deportivo escolar</p>
+  </div>
+
+  <!-- Home -->
+  <header class="top">
+    <h1><img src="icons/icon-192.png" alt="" width="34" height="34">SportSchool</h1>
+    <span id="net" class="net">en línea</span>
+  </header>
+
+  <main id="app">
+    <section id="home" class="view active">
+      <h2>Bienvenido</h2>
+      <p>Registra estudiantes y actividades, consulta su historial y revisa su desempeño, incluso sin conexión.</p>
+      <div class="stats" id="homeStats"></div>
+      <div class="grid">
+        <button data-go="estudiantes">Estudiantes</button>
+        <button data-go="actividad">Registrar actividad</button>
+        <button data-go="historial">Historial</button>
+        <button data-go="desempeno">Desempeño</button>
+      </div>
+      <button id="btnSync" class="ghost">Enviar al servidor de prueba</button>
+      <p id="syncMsg" class="msg" aria-live="polite"></p>
+    </section>
+
+    <section id="estudiantes" class="view">
+      <h2>Registro de estudiantes</h2>
+      <form id="formEst">
+        <label>Nombre <input name="nombre" required maxlength="80"></label>
+        <label>Grupo <input name="grupo" required maxlength="20" placeholder="Ej. 3°B"></label>
+        <label>Disciplina <input name="disciplina" required list="disciplinas" maxlength="40"></label>
+        <datalist id="disciplinas"></datalist>
+        <button type="submit">Guardar estudiante</button>
+      </form>
+      <ul id="listaEst" class="list"></ul>
+    </section>
+
+    <section id="actividad" class="view">
+      <h2>Registro de actividad</h2>
+      <form id="formAct">
+        <label>Estudiante <select name="studentId" id="selEstAct" required></select></label>
+        <label>Fecha <input type="date" name="fecha" required></label>
+        <label>Actividad <input name="actividad" required maxlength="60" placeholder="Ej. Carrera continua"></label>
+        <label>Duración (min) <input type="number" name="minutos" min="1" step="1" required></label>
+        <label>Distancia (km) <input type="number" name="km" min="0" step="0.01" required></label>
+        <label>Observaciones <textarea name="obs" rows="2" maxlength="200"></textarea></label>
+        <button type="button" id="btnGeo" class="ghost">Agregar ubicación (opcional)</button>
+        <p id="geoMsg" class="msg" aria-live="polite"></p>
+        <button type="submit">Guardar actividad</button>
+      </form>
+    </section>
+
+    <section id="historial" class="view">
+      <h2>Historial deportivo</h2>
+      <label>Estudiante <select id="selEstHist"></select></label>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Fecha</th><th>Actividad</th><th>Min</th><th>Km</th><th>Notas</th></tr></thead>
+          <tbody id="tbHist"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="desempeno" class="view">
+      <h2>Desempeño</h2>
+      <label>Estudiante <select id="selEstDes"></select></label>
+      <div class="stats" id="desStats"></div>
+    </section>
+  </main>
+
+  <nav class="tabs" aria-label="Secciones">
+    <button data-go="home">Inicio</button>
+    <button data-go="estudiantes">Alumnos</button>
+    <button data-go="actividad">Actividad</button>
+    <button data-go="historial">Historial</button>
+    <button data-go="desempeno">Desempeño</button>
+  </nav>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
